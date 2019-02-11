@@ -1,4 +1,4 @@
-#include "head.h"
+#include "master_head.h"
 
 game_state_t *newGame() {
 	game_state_t *ret = calloc(sizeof(*ret), 1);

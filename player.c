@@ -1,4 +1,4 @@
-#include "head.h"
+#include "master_head.h"
 
 typedef struct {
 	player_t base;

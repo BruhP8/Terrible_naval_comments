@@ -1,3 +1,17 @@
+/* ------ head.h ----- */
+
+#include <signal.h>
+#include <malloc.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <curses.h>
+#include <string.h>
+
+
+
 /* ------ camp.h ----- */
 
 #ifndef CAMP_H
@@ -93,17 +107,6 @@ cell_t *getCell(game_state_t *game, point_t co);
 point_t getCoordinates(game_state_t *game, cell_t *c);
 #endif 
 
-/* ------ head.h ----- */
-
-#include <signal.h>
-#include <malloc.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <curses.h>
-#include <string.h>
 
 /* ------ player.h ------ */
 

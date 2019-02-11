@@ -1,4 +1,4 @@
-#include "head.h"
+#include "master_head.h"
 
 void interruptHandler(int s) {
 	(void)s;

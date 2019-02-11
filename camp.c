@@ -1,4 +1,4 @@
-#include "head.h"
+#include "master_head.h"
 
 camp_t *newCamp() {
 	camp_t *ret = calloc(1, sizeof(*ret));

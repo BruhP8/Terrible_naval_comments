@@ -1,4 +1,4 @@
-#include "head.h"
+#include "master_head.h"
 #define _GNU_SOURCE
 #define PTR_ERROR 2
 darray_t *darrayNew(size_t element_size) {
