@@ -3,7 +3,7 @@ OBJ=$(SRC:.c=.o)
 CC=gcc
 FLAGS=-Wall
 HEADER=master_head.h
-TARGET=exec
+TARGET=exec.out
 
 $(TARGET): $(OBJ) $(HEADER)
 	$(CC) -o $(TARGET) $(OBJ) -lncurses
@@ -15,4 +15,4 @@ clean:
 	rm *.o
 
 cleanall:
-	rm *.o 
+	rm *.o
