@@ -22,6 +22,9 @@
 *.la
 *.lo
 
+# Doxygen
+doxygen/
+
 # Shared objects (inc. Windows DLLs)
 *.dll
 *.so
