@@ -1,15 +1,23 @@
 #include "master_head.h"
 #define _GNU_SOURCE
 #define PTR_ERROR 2
+/** Argument : prends un size_t qui précise la taille des éléments que la 
+  * structure contiendra
+  * Retour : renvoie la structure darray_t nouvellement créée
+  * darray_new créé une nouvelle structure darray_t initialement vide (end = 
+  * begin = NULL) et effectue l'allocation mémoire pour cette structure. Elle 
+  * contiendra capacity élements de element_size chacun
+*/
 darray_t *darrayNew(size_t element_size) {
 	darray_t *ret;
-	ret = (darray_t*)malloc(sizeof(darray_t));
+	ret = (darray_t*)malloc(sizeof(darray_t)); // Du coup... Indépendant de element_size ??
 	ret->begin = NULL;
-	ret->end = ret->begin;
+	ret->end = ret->begin; // Donc NULL... pourquoi ne pas mettre null ?
 	ret->element_size = element_size;
 	ret->capacity = 0;
 	return ret;
 }
+
 void darrayInsert(darray_t *self, void *pos, void *elem) {
 	void *new_array;
 	char *itr;

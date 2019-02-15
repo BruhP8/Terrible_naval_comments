@@ -10,14 +10,56 @@
 #include <curses.h>
 #include <string.h>
 
+/* ------- point.h ------ */
+#ifndef POINT_H
+#define POINT_H
+typedef struct {
+	int x;
+	int y;
+} point_t;
+#endif 
 
+/* ------ result.h ------ */
+
+#ifndef RESULT_H
+#define RESULT_H
+typedef enum {
+	REDO = -1,
+	MISS,
+	HIT,
+	SUNK
+} result_t;
+#endif 
+
+/* ------ darray.h ------ */
+
+#ifndef DARRAY_H
+#define DARRAY_H
+typedef struct {
+	void *begin;
+	void *end;
+	size_t element_size;
+	size_t capacity;
+} darray_t;
+/// Créé une nouvelle structure darray_t vide et pouvant avoir des éléments de element_size
+darray_t *darrayNew(size_t element_size);
+
+void  darrayInsert(darray_t *self, void *pos, void *elem);
+void  darrayErase(darray_t *self, void *pos);
+void *darrayGet(darray_t *self, size_t idx);
+size_t darraySize(darray_t *self);
+size_t darrayElemSize(darray_t *self);
+void  darrayPushBack(darray_t *self, void *elem);
+void  darrayPopBack(darray_t *self);
+void  darrayDelete(darray_t *self);
+#endif 
 
 /* ------ camp.h ----- */
 
 #ifndef CAMP_H
 #define CAMP_H
-#include "player.h"
-#include "darray.h"
+/*#include "player.h"
+#include "darray.h"*/
 typedef struct camp_s {
 	darray_t *players;
 	int is_alive;
@@ -58,36 +100,15 @@ typedef struct {
 } cell_t;
 #endif
 
-/* ------ darray.h ------ */
-
-#ifndef DARRAY_H
-#define DARRAY_H
-typedef struct {
-	void *begin;
-	void *end;
-	size_t element_size;
-	size_t capacity;
-} darray_t;
-darray_t *darrayNew(size_t element_size);
-void  darrayInsert(darray_t *self, void *pos, void *elem);
-void  darrayErase(darray_t *self, void *pos);
-void *darrayGet(darray_t *self, size_t idx);
-size_t darraySize(darray_t *self);
-size_t darrayElemSize(darray_t *self);
-void  darrayPushBack(darray_t *self, void *elem);
-void  darrayPopBack(darray_t *self);
-void  darrayDelete(darray_t *self);
-#endif 
-
 /* ------ game_state.h ------ */
 
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
-#include "cell.h"
+/*#include "cell.h"
 #include "result.h"
 #include "camp.h"
 #include "darray.h"
-#include "camp_allocator.h"
+#include "camp_allocator.h"*/
 typedef struct game_state_s {
 	cell_t *grid;
 	int width;
@@ -137,25 +158,4 @@ color_t *stateToView(game_state_t *game, player_t *filter);
 void printColorArray(game_state_t *game, color_t *arr);
 void rotate(char piece[5][5], int rotation_nb);
 void printPiece(char piece[PIECE_SIZE][PIECE_SIZE]);
-#endif 
-
-/* ------- point.h ------ */
-#ifndef POINT_H
-#define POINT_H
-typedef struct {
-	int x;
-	int y;
-} point_t;
-#endif 
-
-/* ------ result.h ------ */
-
-#ifndef RESULT_H
-#define RESULT_H
-typedef enum {
-	REDO = -1,
-	MISS,
-	HIT,
-	SUNK
-} result_t;
 #endif 
