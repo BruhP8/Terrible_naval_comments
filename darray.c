@@ -24,8 +24,8 @@ void darrayInsert(darray_t *self, void *pos, void *elem) {
 	int pos_aux;
 	size_t size;
 	pos_aux = (char*)pos - (char*)self->begin;
-	if(darraySize(self) >= self->capacity) {
-		size = darraySize(self);
+	if(darraySize(self) >= self->capacity) { //si on dépasse sa capacité
+		size = darraySize(self); // enregistre la size
 		new_array = realloc(self->begin, (darraySize(self) + 1) * self->element_size);
 		if (!new_array) {
 			fprintf(stderr, "Failed memory reallocation at %s:%d\nAborting...", __FILE__,
