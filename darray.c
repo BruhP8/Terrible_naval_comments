@@ -17,7 +17,12 @@ darray_t *darrayNew(size_t element_size) {
 	ret->capacity = 0;
 	return ret;
 }
-
+/** Aruguments : le darray_t à modifier, la position de l'élément à insérer et l'élément à insérer
+  * Copie l'actuel darray_t dans un nouveau darray_t en y insérant élem à la position pos.
+  * En cas de dépassement de la capacité si l'ancien darray était plein, gère la
+  * réallocation mémoire
+  * Retour : rien
+*/
 void darrayInsert(darray_t *self, void *pos, void *elem) {
 	void *new_array;
 	char *itr;
@@ -41,13 +46,12 @@ void darrayInsert(darray_t *self, void *pos, void *elem) {
 	memcpy(itr, elem, self->element_size);
 	self->end = (char*)self->end + self->element_size;
 }
-/** Arguments :
-  *
-  *
+/** Arguments : le darray_t qu'on veut modifier et la position de l'élément a supprimer
+  * Supprime l'élément situé à la position pos du darray
+  * Retour : rien
 */
 void darrayErase(darray_t *self, void *pos) {
-	memmove(pos, (char *)pos + self->element_size,
-					((char *)self->end - self->element_size) - (char *)pos);
+	memmove(pos, (char *)pos + self->element_size, ((char *)self->end - self->element_size) - (char *)pos);
 	self->end = (char*)self->end - self->element_size;
 }
 /** Argument : Prend le darray_t dont on veut connaitre la taille
@@ -56,9 +60,9 @@ void darrayErase(darray_t *self, void *pos) {
 size_t darraySize(darray_t *self) {
 	return ((char*)self->end - (char*)self->begin) / self->element_size;
 }
-/**
-  *
-  *
+/** Arguments : le darray_t auquel on veut accèder et l'indexe de l'élément
+  *	Parcours le darray_t passé en argument avec un itérateur idx 
+  * Retour un pointeur sur cet élément
 */
 void *darrayGet(darray_t *self, size_t idx) {
 	void *itr;

@@ -43,9 +43,11 @@ typedef struct {
 } darray_t;
 /// Créé une nouvelle structure darray_t vide et pouvant avoir des éléments de element_size
 darray_t *darrayNew(size_t element_size);
-
+/// Insère un élément à la position pos du darray
 void  darrayInsert(darray_t *self, void *pos, void *elem);
+/// Supprime l'élément situé au pos - ième élément
 void  darrayErase(darray_t *self, void *pos);
+/// Retourne un pointeur sur l'élément à la position pos
 void *darrayGet(darray_t *self, size_t idx);
 /// Renvoie la taille du darray_t passé en argument
 size_t darraySize(darray_t *self);
