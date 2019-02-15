@@ -47,10 +47,14 @@ darray_t *darrayNew(size_t element_size);
 void  darrayInsert(darray_t *self, void *pos, void *elem);
 void  darrayErase(darray_t *self, void *pos);
 void *darrayGet(darray_t *self, size_t idx);
+/// Renvoie la taille du darray_t passé en argument
 size_t darraySize(darray_t *self);
-size_t darrayElemSize(darray_t *self);
+// size_t darrayElemSize(darray_t *self);
+/// Fake macro pour appeller insert à la fin.
 void  darrayPushBack(darray_t *self, void *elem);
+/// Fake macro pour appeller Erase sur le dernier élément
 void  darrayPopBack(darray_t *self);
+/// Supprime le darray_t passé en argument
 void  darrayDelete(darray_t *self);
 #endif 
 
@@ -104,11 +108,7 @@ typedef struct {
 
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
-/*#include "cell.h"
-#include "result.h"
-#include "camp.h"
-#include "darray.h"
-#include "camp_allocator.h"*/
+
 typedef struct game_state_s {
 	cell_t *grid;
 	int width;
