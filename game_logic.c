@@ -1,5 +1,11 @@
 #include "master_head.h"
-
+/**
+ newGame: ne prend rien en args , renvoie un ptr sur game_stat
+ utilité : elle initialise une partie  en initialisant la taille
+ de la grille et on allouant un tableau de cellule et un camp avec
+ un cheat code a -1 ; et alloue un camp
+ utilité : c'est une fonction necessaire
+*/
 game_state_t *newGame() {
 	game_state_t *ret = calloc(sizeof(*ret), 1);
 	ret->width = 17 * 2;
@@ -80,6 +86,18 @@ player_t *findOwner(game_state_t *game, point_t p) {
 	}
 	return 0;
 }
+
+/**
+fonction qui prend en args un game_state qui contient toutes les infos
+d'une partie  un joueur(celui qui attaque) et le point qu'il attaque
+ cette fonction nous permet d'attauquer un point de l'equipe adeverse 
+ apres avoir verifier que celui est bien un point de l'equipe adverse 
+ qu'il n'a pas deja ete attaque return un result REDO qui veut dire
+ que le joueur attaque son camp
+ SUNK qu'il l'a coulé un bateau
+ Hit qu'on attauque un point d'un bateau pas tous le bateau
+ et MISS qu'on a rien eu
+*/
 result_t doAction(game_state_t *game, player_t *player, point_t coordinates) {
 	cell_t *c;
 	c = &game->grid[game->width * coordinates.y + coordinates.x];
@@ -113,10 +131,19 @@ int turnEndUpdate(game_state_t *game) {
 	}
 	return n_alive > 1;
 }
+
+/**
+	prend en args un point et un tableau de deux points 
+	verifie que le point est inclut dans le rectangle
+
+*/
 int isPointInsideRect(point_t p, point_t rect[2]) {
 	return p.x >= rect[0].x && p.x < rect[1].x &&
 		p.y >= rect[0].y && p.y < rect[1].y;
 }
+/**
+prend en args 
+*/
 cell_t *getCell(game_state_t *game, point_t co) {
 	return &game->grid[game->width * co.y + co.x];
 }
