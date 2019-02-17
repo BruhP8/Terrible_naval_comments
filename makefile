@@ -15,4 +15,4 @@ clean:
 	rm *.o
 
 cleanall:
-	rm *.o
+	rm *.o $(TARGET)
