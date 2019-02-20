@@ -1,10 +1,8 @@
 #include "master_head.h"
-/**
- newGame: ne prend rien en args , renvoie un ptr sur game_stat
- utilité : elle initialise une partie  en initialisant la taille
- de la grille et on allouant un tableau de cellule et un camp avec
- un cheat code a -1 ; et alloue un camp
- utilité : c'est une fonction necessaire
+/** Arguments : Rien
+  * Initialise une partie en créant une grille de jeu et en allouant un tableau 
+  * de cellule et un camp. Un cheat_code est également initialisé à -1 (inactif)
+  * Retour : Pointeur sur l'instance de jeu nouvellement créée
 */
 game_state_t *newGame() {
 	game_state_t *ret = calloc(sizeof(*ret), 1);
@@ -13,10 +11,10 @@ game_state_t *newGame() {
 	ret->grid = calloc(sizeof(cell_t), (size_t)(ret->width * ret->height));
 	ret->camps = darrayNew(sizeof(camp_t *));
 	ret->cheat = -1;
-	
 	ret->camp_allocator = newSingleAllocator();
 	return ret;
 }
+
 int isSunk(game_state_t *game, point_t cp, int id) {
 	cell_t *neighbours[4] = {0};
 	cell_t *c = &game->grid[game->width * cp.y + cp.x];
@@ -87,16 +85,14 @@ player_t *findOwner(game_state_t *game, point_t p) {
 	return 0;
 }
 
-/**
-fonction qui prend en args un game_state qui contient toutes les infos
-d'une partie  un joueur(celui qui attaque) et le point qu'il attaque
- cette fonction nous permet d'attauquer un point de l'equipe adeverse 
- apres avoir verifier que celui est bien un point de l'equipe adverse 
- qu'il n'a pas deja ete attaque return un result REDO qui veut dire
- que le joueur attaque son camp
- SUNK qu'il l'a coulé un bateau
- Hit qu'on attauque un point d'un bateau pas tous le bateau
- et MISS qu'on a rien eu
+/** Arguments : L'état de la partie actuelle, le joueur actuel et les coordonnées selectionnées
+  *             par celui ci
+  * Apres avoir vérifié que les coordonnées entrées n'ont pas déja été entrées et qu'elles
+  * sont jouables (sinon, envoie REDO pour relancer le prompt), détruit le point touché (
+  * retour HIT) et fait couler le bateau si besoin (retour SUNK). Enfin si le tir ne 
+  * touche pas, retourne MISS
+  * Retour : renvoie HIT, SUNK MISS ou REDO celon la situation ce qui determinera ce que
+  *          le programme doit faire ensuite.
 */
 result_t doAction(game_state_t *game, player_t *player, point_t coordinates) {
 	cell_t *c;
@@ -115,6 +111,10 @@ result_t doAction(game_state_t *game, player_t *player, point_t coordinates) {
 	}
 	return MISS;
 }
+/** Arguments : Une zone de jeu
+  * Parcours la zone de jeu et compte le nombre de bateaux encore en vie
+  * Retourne 1 si ce nombre est supérieur à 1, 0 sinon
+*/
 int turnEndUpdate(game_state_t *game) {
 	int n_alive = 0;
 	
@@ -132,21 +132,26 @@ int turnEndUpdate(game_state_t *game) {
 	return n_alive > 1;
 }
 
-/**
-	prend en args un point et un tableau de deux points 
-	verifie que le point est inclut dans le rectangle
-
+/** Arguments : Le point concerné, un rectangle représentant la zone attaquable
+  * Vérifie si le point visé est bien inclus dans le rectangle jouable. En d'autres
+  * termes, si il est dans le camp ennemi
+  *	Retour : 1 si jouable, 0 sinon
 */
 int isPointInsideRect(point_t p, point_t rect[2]) {
 	return p.x >= rect[0].x && p.x < rect[1].x &&
 		p.y >= rect[0].y && p.y < rect[1].y;
 }
-/**
-prend en args 
+/** Arguments : une zone de jeu et un point
+  * Sélectionne la cellule passée en argument
+  * Retour : cette cellule
 */
 cell_t *getCell(game_state_t *game, point_t co) {
 	return &game->grid[game->width * co.y + co.x];
 }
+/** Arguments : Une zone de jeu et un point
+  * Récupère les coordonnées d'une cellule
+  * Retour : les coordonnées de la cellue
+*/
 point_t getCoordinates(game_state_t *game, cell_t *c) {
 	int dist = c - game->grid;
 	return (point_t) {

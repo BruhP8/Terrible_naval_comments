@@ -119,12 +119,19 @@ typedef struct game_state_s {
 	darray_t *camps;
 	camp_t *winning;
 } game_state_t;
+/// Initialisation d'une nouvelle zone de jeu
 game_state_t *newGame();
+/// Détermine celon la position jouée la suite du programme : rejouer, touché, raté, coulé...
 result_t doAction(game_state_t *, player_t *, point_t);
+/// Regarde si la fin du tour entraine la victoire d'un des deux camps
 int turnEndUpdate(game_state_t *);
+/// Vérifie si le point entré en argument est jouable dans le rectangle
 int isPointInsideRect(point_t p, point_t rect[2]);
+/// 
 void interruptHandler(int s);
+/// Selectionne une cellule
 cell_t *getCell(game_state_t *game, point_t co);
+/// Récupère les coordonnées d'une cellule
 point_t getCoordinates(game_state_t *game, cell_t *c);
 #endif 
 

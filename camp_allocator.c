@@ -4,10 +4,9 @@ typedef struct {
 	camp_allocator_t base;
 	int alloc_number;
 } single_camp_allocator_t;
+
 static void singleAllocateCamp(camp_allocator_t *base, game_state_t *game, player_t *p) {
 	single_camp_allocator_t *self = (void*) base;
-	
-	
 	camp_t *camp = newCamp();
 	darrayPushBack(camp->players, &p);
 	darrayPushBack(game->camps, &camp);

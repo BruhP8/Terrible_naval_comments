@@ -1,5 +1,8 @@
 #include "master_head.h"
-
+/** Argument : un int
+  * Le flou total, a priori montre qui a gagné et quitte le programme ??
+  * Retour : rien
+*/
 void interruptHandler(int s) {
 	(void)s;
 	resetty();
