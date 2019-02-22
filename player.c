@@ -11,10 +11,6 @@ typedef struct {
 extern char Pieces[][PIECE_SIZE][PIECE_SIZE]; //Variable global..
 
 void printColorArray(game_state_t *game, color_t *arr) {
-	
-	
-	
-	
 	char *buf = malloc(game->height * game->width * sizeof(char) * 7 + (game->height * 7) + 9);
 	buf[0] = 0;
 	char *it = buf;
@@ -124,7 +120,7 @@ static point_t playerLocalAction(player_t *self, game_state_t *game) {
 			}
 		}
 	}
-	
+
 	return r;
 }
 static void playerLocalSetBoats(player_t *self, game_state_t *game) {
@@ -145,7 +141,7 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 			int coll = blitBoat(boat, arr, r, game, &k);
 			printColorArray(game, arr);
 			printf("[%s] Flèches pour déplacer, r pour tourner, espace pour valider\n\r", self->name);
-			
+
 			int c = getch();
 			if (c == ' ') {
 				if (!coll) {
@@ -164,11 +160,11 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 				free(arr);
 				break;
 			}
-			else if (c == 'r') 
+			else if (c == 'r')
 				rotate(*boat, 1);
-			else if (c == '\033') 
+			else if (c == '\033')
 				cursorMovement(&r, game);
-			else if (c == 4) 
+			else if (c == 4)
 				interruptHandler(0);
 			free(arr);
 		}
@@ -190,7 +186,7 @@ player_t *newLocalPlayer() {
 }
 
 color_t *stateToView(game_state_t *game, player_t *filter) {
-	
+
 	color_t *arr = calloc(game->width * game->height, sizeof(color_t));
 	static const color_t player_colors[] = {CYAN, WHITE, YELLOW, MAGENTA, 0, 0, 0, RED};
 	static const color_t foe_colors[] = {BLUE, BLUE, CYAN, MAGENTA, 0, 0, 0, RED};
@@ -241,6 +237,11 @@ void realignPiece(char piece[PIECE_SIZE][PIECE_SIZE]) {
 	while (emptyLine(piece, 0))
 		shiftLineUp(piece);
 }
+/** Argument : une piece (sous la forme d'un tableau de 5*5)
+* Fonction pour effectuer une rotation de la piece.
+* Le second argument sert a definir le nombre de rotation de 90 degres.
+* Retour : rien
+*/
 void rotate(char piece[5][5], int rotation_nb) {
 	int outer_loop, inner_loop, rotations;
 	for (rotations = 0; rotations < rotation_nb; ++rotations) {

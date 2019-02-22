@@ -1,7 +1,7 @@
 #include "master_head.h"
 /** Argument : un signal (Sous la forme d'un int)
-  * Fonction pour arreter le programme proprement quand il recoit un signal SIGINT.
-  * Retour : rien
+* Fonction pour arreter le programme proprement quand il recoit un signal SIGINT.
+* Retour : rien
 */
 void interruptHandler(int s) {
 	(void)s;
@@ -20,7 +20,7 @@ int main(int argc, char *argv[argc])
 	struct sigaction s;
 	memset(&s, 0, sizeof(s)); //Alloue la mémoire
 	s.sa_handler = interruptHandler; //Affecte la fonction interrupHandler a l'evenement s
-	sigemptyset(&s.sa_mask);	
+	sigemptyset(&s.sa_mask);
 	sigaction(SIGINT, &s, 0); //Remplace l'action de SIGINT par s
 	savetty();
 	initscr(); //Initialise l'ecran Ncurse
@@ -29,14 +29,14 @@ int main(int argc, char *argv[argc])
 	timeout(-1); //Bloque le rafraichissement en attente d'input
 	curs_set(0); //Rend le curseur invisible
 	refresh(); //Affiche les input
-	
+
 	game_state_t *game = newGame();
 	if (argc >= 2) {
 		game->cheat = atoi(argv[1]);
 		if (game->cheat < 0 || game->cheat >= 7)
-			game->cheat = -1;
+		game->cheat = -1;
 	}
-	
+
 	{
 		player_t *p = newLocalPlayer(); //Creation du joueur 1
 		p->name = "Joueur 1";
@@ -44,7 +44,7 @@ int main(int argc, char *argv[argc])
 		p = newLocalPlayer(); //Creation du joueur 2
 		p->name = "Joueur 2";
 		game->camp_allocator->put_in_camp(game->camp_allocator, game, p);
-		// ici pour 3e joueur 
+		// ici pour 3e joueur
 	}
 	while (1) {
 		for(unsigned i = 0; i < darraySize(game->camps); ++i) {
@@ -80,21 +80,21 @@ int main(int argc, char *argv[argc])
 					fflush(stdout);
 				} while(r == REDO);
 				if (!turnEndUpdate(game))
-					goto end;
+				goto end;
 				printf("C'est le tour du joueur suivant, appuyez sur espace\n\r");
 				while (getch() != 32);
 				++players;
 			}
 		}
 	}
-end:;
+	end:;
 	player_t admin = {.owned_rect = {{0, 0}, {game->width, game->height}}};
 	void *bitmap = stateToView(game, &admin);
 	printColorArray(game, bitmap);
 	free(bitmap);
 	printf("L'équipe gagnante est { %s }\n\r", campTeamString(game->winning));
-	
-	
+
+
 	for (unsigned i = 0; i < darraySize(game->camps); ++i) {
 		camp_t *c = *(camp_t**)darrayGet(game->camps, i);
 		deleteCamp(c);
@@ -105,8 +105,8 @@ end:;
 	free(game);
 	printf("Appuyez sur une touche pour terminer\n\r");
 	refresh();
-	
+
 	getch();
 	interruptHandler(0);
-    return 0;
+	return 0;
 }

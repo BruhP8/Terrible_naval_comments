@@ -17,7 +17,7 @@ typedef struct {
 	int x;
 	int y;
 } point_t;
-#endif 
+#endif
 
 /* ------ result.h ------ */
 
@@ -29,7 +29,7 @@ typedef enum {
 	HIT,
 	SUNK
 } result_t;
-#endif 
+#endif
 
 /* ------ darray.h ------ */
 
@@ -58,7 +58,7 @@ void  darrayPushBack(darray_t *self, void *elem);
 void  darrayPopBack(darray_t *self);
 /// Supprime le darray_t passé en argument
 void  darrayDelete(darray_t *self);
-#endif 
+#endif
 
 /* ------ camp.h ----- */
 
@@ -72,7 +72,7 @@ typedef struct camp_s {
 camp_t *newCamp();
 char *campTeamString(camp_t *);
 void deleteCamp(camp_t *);
-#endif 
+#endif
 
 /* ------  camp_allocator.h ------ */
 
@@ -84,7 +84,7 @@ typedef struct camp_allocator_s {
 	void (*put_in_camp)(struct camp_allocator_s *, game_state_t *, player_t *);
 } camp_allocator_t;
 camp_allocator_t *newSingleAllocator();
-#endif 
+#endif
 
 /* ------ cell.h ----- */
 
@@ -133,7 +133,7 @@ void interruptHandler(int s);
 cell_t *getCell(game_state_t *game, point_t co);
 /// Récupère les coordonnées d'une cellule
 point_t getCoordinates(game_state_t *game, cell_t *c);
-#endif 
+#endif
 
 
 /* ------ player.h ------ */
@@ -167,6 +167,7 @@ typedef enum {
 } color_t;
 color_t *stateToView(game_state_t *game, player_t *filter);
 void printColorArray(game_state_t *game, color_t *arr);
+/// Fonction qui gere les rotations
 void rotate(char piece[5][5], int rotation_nb);
 void printPiece(char piece[PIECE_SIZE][PIECE_SIZE]);
-#endif 
+#endif
