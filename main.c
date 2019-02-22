@@ -1,6 +1,6 @@
 #include "master_head.h"
-/** Argument : un int
-  * Le flou total, a priori montre qui a gagné et quitte le programme ??
+/** Argument : un signal (Sous la forme d'un int)
+  * Fonction pour arreter le programme proprement quand il recoit un signal SIGINT.
   * Retour : rien
 */
 void interruptHandler(int s) {
@@ -14,20 +14,21 @@ void interruptHandler(int s) {
 	endwin();
 	exit(127);
 }
+
 int main(int argc, char *argv[argc])
 {
 	struct sigaction s;
-	memset(&s, 0, sizeof(s));
-	s.sa_handler = interruptHandler;
+	memset(&s, 0, sizeof(s)); //Alloue la mémoire
+	s.sa_handler = interruptHandler; //Affecte la fonction interrupHandler a l'evenement s
 	sigemptyset(&s.sa_mask);	
-	sigaction(SIGINT, &s, 0);
+	sigaction(SIGINT, &s, 0); //Remplace l'action de SIGINT par s
 	savetty();
-	initscr();
-	clear();
+	initscr(); //Initialise l'ecran Ncurse
+	clear(); //Nettoie l'ecran
 	noecho();
-	timeout(-1);
-	curs_set(0);
-	refresh();
+	timeout(-1); //Bloque le rafraichissement en attente d'input
+	curs_set(0); //Rend le curseur invisible
+	refresh(); //Affiche les input
 	
 	game_state_t *game = newGame();
 	if (argc >= 2) {
@@ -37,10 +38,10 @@ int main(int argc, char *argv[argc])
 	}
 	
 	{
-		player_t *p = newLocalPlayer();
+		player_t *p = newLocalPlayer(); //Creation du joueur 1
 		p->name = "Joueur 1";
 		game->camp_allocator->put_in_camp(game->camp_allocator, game, p);
-		p = newLocalPlayer();
+		p = newLocalPlayer(); //Creation du joueur 2
 		p->name = "Joueur 2";
 		game->camp_allocator->put_in_camp(game->camp_allocator, game, p);
 	}

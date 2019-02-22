@@ -1,9 +1,15 @@
 #include "master_head.h"
 
+//Un type inutile......
+
+/**
+* Une structure ayant pour seul et unique membre base, un player_t.
+*/
 typedef struct {
 	player_t base;
 } local_player_t;
-extern char Pieces[][PIECE_SIZE][PIECE_SIZE];
+extern char Pieces[][PIECE_SIZE][PIECE_SIZE]; //Variable global..
+
 void printColorArray(game_state_t *game, color_t *arr) {
 	
 	
@@ -171,12 +177,18 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 	if (game->cheat > -1)
 		self->n_boats = 1;
 }
+
+/**
+* Fonction qui créée un nouveau joueur en initialisant sa mémoire et get_action et setup_boats
+* Retour : Pointeur sur player_t
+*/
 player_t *newLocalPlayer() {
 	local_player_t *ret = calloc(1, sizeof(*ret));
 	ret->base.get_action = playerLocalAction;
 	ret->base.setup_boats = playerLocalSetBoats;
 	return &ret->base;
 }
+
 color_t *stateToView(game_state_t *game, player_t *filter) {
 	
 	color_t *arr = calloc(game->width * game->height, sizeof(color_t));

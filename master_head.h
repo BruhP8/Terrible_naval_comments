@@ -143,6 +143,7 @@ point_t getCoordinates(game_state_t *game, cell_t *c);
 #define PIECE_SIZE 5
 struct game_state_s;
 typedef struct game_state_s game_state_t;
+
 typedef struct player_s {
 	point_t (*get_action)(struct player_s *, game_state_t *);
 	void (*setup_boats)(struct player_s *, game_state_t *);
@@ -150,7 +151,10 @@ typedef struct player_s {
 	point_t owned_rect[2];
 	int n_boats;
 } player_t;
+
+///Fonction qui créée un nouveau joueur.
 player_t *newLocalPlayer();
+
 typedef enum {
 	BLACK,
 	RED = 41,
