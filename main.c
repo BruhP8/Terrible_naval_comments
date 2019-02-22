@@ -43,6 +43,7 @@ int main(int argc, char *argv[argc])
 		p = newLocalPlayer();
 		p->name = "Joueur 2";
 		game->camp_allocator->put_in_camp(game->camp_allocator, game, p);
+		// ici pour 3e joueur 
 	}
 	while (1) {
 		for(unsigned i = 0; i < darraySize(game->camps); ++i) {
@@ -62,17 +63,17 @@ int main(int argc, char *argv[argc])
 					clear();
 					refresh();
 					switch (r) {
-					case REDO:
-						break;
-					case HIT:
-						puts("Touché!");
-						break;
-					case MISS:
-						puts("Raté!");
-						break;
-					case SUNK:
-						puts("Coulé!");
-						break;
+						case REDO:
+							break;
+						case HIT:
+							puts("Touché!");
+							break;
+						case MISS:
+							puts("Raté!");
+							break;
+						case SUNK:
+							puts("Coulé!");
+							break;
 					}
 					printf("\r");
 					fflush(stdout);

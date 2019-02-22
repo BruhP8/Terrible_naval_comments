@@ -127,7 +127,7 @@ result_t doAction(game_state_t *, player_t *, point_t);
 int turnEndUpdate(game_state_t *);
 /// Vérifie si le point entré en argument est jouable dans le rectangle
 int isPointInsideRect(point_t p, point_t rect[2]);
-/// 
+/// Met fin à la partie, annonce le gagnant et stoppe le programme ?
 void interruptHandler(int s);
 /// Selectionne une cellule
 cell_t *getCell(game_state_t *game, point_t co);
