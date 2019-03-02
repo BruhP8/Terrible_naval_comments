@@ -14,6 +14,12 @@ game_state_t *newGame() {
 	ret->camp_allocator = newSingleAllocator();
 	return ret;
 }
+/**
+	Args : game_state_t l'etat courant d'une partie , un point , et l'id de la cellule
+	elle nous permet de savoir si oui ou non un bateau a coule
+
+	retour un 0 si on a pas coule sinon 1
+*/
 
 int isSunk(game_state_t *game, point_t cp, int id) {
 	cell_t *neighbours[4] = {0};
@@ -48,6 +54,12 @@ int isSunk(game_state_t *game, point_t cp, int id) {
 	}
 	return 1;
 }
+/**
+	Args : game_state_t l'etat courant d'une partie , un point , et l'id de la cellule
+	elle nous permet de mettre a jour pour un point donneé si oui ou non le bateau est coule
+	elle complete la fonction isSunk
+	retour  rien
+*/
 void setSunk(game_state_t *game, point_t cp, int id) {
 	cell_t *neighbours[4] = {0};
 	cell_t *c = &game->grid[game->width * cp.y + cp.x];
