@@ -85,6 +85,12 @@ void setSunk(game_state_t *game, point_t cp, int id) {
 	}
 	c->has_sunk |= 1;
 }
+/**
+	args: fonction qui prend une game_state_t et point 
+	ils nous indique de quel camps somme nous
+	elle renvoie un pointeur sur joueur
+	elle nous sert a pouvoir attaquer ou poser les bateaux
+*/
 player_t *findOwner(game_state_t *game, point_t p) {
 	for (unsigned i = 0; i < darraySize(game->camps); ++i) {
 		camp_t *c = *(camp_t**)darrayGet(game->camps, i);
