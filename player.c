@@ -10,6 +10,10 @@ typedef struct {
 } local_player_t;
 extern char Pieces[][PIECE_SIZE][PIECE_SIZE]; //Variable global..
 
+/** Arguments : Un environnement de jeu, le tableau de enum definissant les couleurs.
+  * Parcours le tableau représentant la zone de jeu et le remplis de couleurs spécifiées dans les sprintf.
+  * Retour : rien
+*/
 void printColorArray(game_state_t *game, color_t *arr) {
 	char *buf = malloc(game->height * game->width * sizeof(char) * 7 + (game->height * 7) + 9);
 	buf[0] = 0;
@@ -67,7 +71,7 @@ int blitBoat(char (*piece)[5][5], color_t *arr, point_t pos, game_state_t *game,
 			color_t *c = &arr[game->width * (i + pos.y) + (j + pos.x)];
 			acc += (*c != CYAN);
 			add[0] += 1;
-			*c = WHITE;
+			*c = RED;
 		}
 	return acc;
 }

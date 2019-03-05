@@ -83,6 +83,7 @@ typedef struct player_s player_t;
 typedef struct camp_allocator_s {
 	void (*put_in_camp)(struct camp_allocator_s *, game_state_t *, player_t *);
 } camp_allocator_t;
+/// Création du joueur, attribution de sa zone de jeu, appel au placement de ses bateaux
 camp_allocator_t *newSingleAllocator();
 #endif
 
@@ -166,6 +167,7 @@ typedef enum {
 	WHITE,
 } color_t;
 color_t *stateToView(game_state_t *game, player_t *filter);
+/// Coloration de la zone de jeu
 void printColorArray(game_state_t *game, color_t *arr);
 /// Fonction qui gere les rotations
 void rotate(char piece[5][5], int rotation_nb);
