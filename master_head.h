@@ -10,6 +10,9 @@
 #include <curses.h>
 #include <string.h>
 
+#define HEIGHT 25
+#define WIDTH 25
+
 /* ------- point.h ------ */
 #ifndef POINT_H
 #define POINT_H

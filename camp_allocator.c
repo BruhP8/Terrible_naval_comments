@@ -16,14 +16,14 @@ static void singleAllocateCamp(camp_allocator_t *base, game_state_t *game, playe
 	camp_t *camp = newCamp();
 	darrayPushBack(camp->players, &p);
 	darrayPushBack(game->camps, &camp);
-	int bidx = 17 * self->alloc_number;
+	int bidx = 25 * self->alloc_number;
 	p->owned_rect[0] = (point_t) {
 			bidx % game->width,
-			bidx / game->width * 17
+			bidx / game->width * 25
 	};
 	p->owned_rect[1] = (point_t) {
-		p->owned_rect[0].x + 17,
-		p->owned_rect[0].y + 17,
+		p->owned_rect[0].x + 25,
+		p->owned_rect[0].y + 25,
 	};
 	++self->alloc_number;
 	p->setup_boats(p, game);
