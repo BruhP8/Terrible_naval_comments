@@ -45,6 +45,9 @@ int main(int argc, char *argv[argc])
 		p->name = "Joueur 2";
 		game->camp_allocator->put_in_camp(game->camp_allocator, game, p);
 		// ici pour 3e joueur
+		p = newLocalPlayer();
+		p->name = "Joueur 3";
+		game->camp_allocator->put_in_camp(game->camp_allocator, game, p);
 	}
 	while (1) {
 		for(unsigned i = 0; i < darraySize(game->camps); ++i) {

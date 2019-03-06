@@ -6,7 +6,7 @@
 */
 game_state_t *newGame() {
 	game_state_t *ret = calloc(sizeof(*ret), 1);
-	ret->width = WIDTH * 2;
+	ret->width = WIDTH * 3;
 	ret->height = HEIGHT;
 	ret->grid = calloc(sizeof(cell_t), (size_t)(ret->width * ret->height));
 	ret->camps = darrayNew(sizeof(camp_t *));
