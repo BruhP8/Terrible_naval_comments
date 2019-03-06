@@ -1,7 +1,7 @@
 #include "master_head.h"
 /** Argument : un signal (Sous la forme d'un int)
-* Fonction pour arreter le programme proprement quand il recoit un signal SIGINT.
-* Retour : rien
+  * Fonction pour arreter le programme proprement quand il recoit un signal SIGINT.
+  * Retour : rien
 */
 void interruptHandler(int s) {
 	(void)s;

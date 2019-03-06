@@ -36,6 +36,12 @@ void printColorArray(game_state_t *game, color_t *arr) {
 	puts(buf);
 	free(buf);
 }
+/** Arguments : Une pièce à afficher, la position relative de la pièce, un environnement
+  * de jeu, un identifiant pour savoir quel genre de pièce afficher
+  * Affichage de la pièce spécifiée sur la zone de jeu, et déclaration de la présence d'
+  * un bateau sur cette cellule.
+  * Retour : rien
+*/
 void blitToGrid(char (*piece)[5][5], point_t pos, game_state_t *game, int id) {
 	for (int i = 0; i < 5; ++i)
 		for (int j = 0; j < 5; ++j) {
@@ -53,6 +59,11 @@ void blitToGrid(char (*piece)[5][5], point_t pos, game_state_t *game, int id) {
 			c->boat_id = id;
 		}
 }
+/** Arguments : Une pièce à afficher, le enum de couleurs, la postion de la pièce
+  * un environnement de jeu, et un int dont l'utilité est floue
+  * Affiche les bateaux placés et en cours de placement sur la zone de jeu
+  * Retour : un int.
+*/
 int blitBoat(char (*piece)[5][5], color_t *arr, point_t pos, game_state_t *game, int *add) {
 	int acc = 0;
 	for (int i = 0; i < 5; ++i)
@@ -75,6 +86,11 @@ int blitBoat(char (*piece)[5][5], color_t *arr, point_t pos, game_state_t *game,
 		}
 	return acc;
 }
+/** Arguments : un point (la position actuelle du curseur), un environnement de jeu
+  * Déplace le curseur sur la zone de jeu, en fonction des interactions du joueur
+  * avec les flèches directionnelles.
+  * Retour : Rien
+*/
 static void cursorMovement(point_t *r, game_state_t *game) {
 	switch(getch()) {
 	case '[':
@@ -101,6 +117,13 @@ static void cursorMovement(point_t *r, game_state_t *game) {
 		break;
 	}
 }
+/** Arguments : un joueur, un envrionnement de jeu
+  * Détermine le type d'action qu'a fait le joueur lors d'une boucle infinie.
+  * Exemple : si on recoit ' ', soit un espace, on sort de la boucle car le joueur
+  * a fini de faire ce qu'il avait a faire (tirer, placer un bateau...) Appelle
+  * le interrupHandler en cas de fin de trasnmission (4 en ASCII = EOF, end of transmission)
+  * Retour : le point de la grille sélectionné par le joueur quand il appuie sur espace.
+*/
 static point_t playerLocalAction(player_t *self, game_state_t *game) {
 	point_t r = {game->width / 2, game->height / 2};
 	while (1) {
@@ -127,6 +150,13 @@ static point_t playerLocalAction(player_t *self, game_state_t *game) {
 
 	return r;
 }
+/** Arguments : Le joueur devant jouer, l'environnement de jeu.
+  * Gère la phase de placement des bateaux : initialise le curseur au milieu de la 
+  * zone appartenant au joueur, puis lance le placement des bateaux celon le cheat
+  * code utilisé. Espace valide le placement du bateau, r demande la rotation de ce
+  * bateau...
+  * Retour : rien.
+*/
 static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 	point_t prev = {0, 0};
 	point_t r = {
