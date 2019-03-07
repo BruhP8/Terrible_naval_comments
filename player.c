@@ -164,15 +164,6 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 		(self->owned_rect[0].y + self->owned_rect[1].y) / 2
 	};
 
-	/* Partie des mes testiboules	*/
-	//char obst_mem[5][5];
-	//char (*obst)[5][5] = &obst_mem;
-
-	//int alea1 = self->owned_rect[0].x + ((self->owned_rect[1].x - self->owned_rect[0].x) * (rand () / (double) RAND_MAX));
-	//int alea2 = self->owned_rect[0].x + ((self->owned_rect[1].x - self->owned_rect[0].x) * (rand () / (double) RAND_MAX));
-
-	//(rand() % (self->owned_rect[1].x + 1 - self->owned_rect[0].x) + self->owned_rect[0].x)
-
 	time_t t;
 
 	srand((unsigned) time(&t));
@@ -183,11 +174,8 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 			(rand() % (self->owned_rect[1].y - self->owned_rect[0].y) + self->owned_rect[0].y)
 		};
 		cell_t *c = &game->grid[game->width * p1.y + p1.x];
-		//c->has_exploded = 1;
-		//c->has_exploded = 1;
 		c->obstacle = 1;
 	}
-	/* Fin des mes testiboules */
 
 	for(int i = 0; i < 7;) {
 		if (game->cheat > -1)
