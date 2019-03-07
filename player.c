@@ -36,8 +36,8 @@ void printColorArray(game_state_t *game, color_t *arr) {
 	puts(buf);
 	free(buf);
 }
-/** Arguments : Une pièce à afficher, la position relative de la pièce, un environnement\n
-  * de jeu, un identifiant pour savoir quel genre de pièce afficher
+/** Arguments : Une pièce à afficher, la position relative de la pièce, un environnement
+  * de jeu, un identifiant pour savoir quel genre de pièce afficher \n
   * Affichage de la pièce spécifiée sur la zone de jeu, et déclaration de la présence d'
   * un bateau sur cette cellule.\n
   * Retour : rien
