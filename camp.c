@@ -1,6 +1,6 @@
 #include "master_head.h"
 /**
-inialise un camp avec aux moins un joueur
+inialise un camp avec aux moins un joueur 
 dans la strucute camp_t avec un calloc en les mettant a 1
 le champ player est inialiser avec un pointeur
 */
@@ -30,8 +30,8 @@ char *campTeamString(camp_t *self) {
 	return self->team_string;
 }
 /**
-	Argument : un camp 
-	elle supprime tous ces champs en fin de partie
+	Argument : un camp  \n
+	elle supprime tous ces champs en fin de partie \n
 	utilité : libere la memoire en fin de partie pour eviter les pertes 
 */
 void deleteCamp(camp_t *self) {

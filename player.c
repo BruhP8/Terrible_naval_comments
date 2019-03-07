@@ -10,8 +10,8 @@ typedef struct {
 } local_player_t;
 extern char Pieces[][PIECE_SIZE][PIECE_SIZE]; //Variable global..
 
-/** Arguments : Un environnement de jeu, le tableau de enum definissant les couleurs.
-  * Parcours le tableau représentant la zone de jeu et le remplis de couleurs spécifiées dans les sprintf.
+/** Arguments : Un environnement de jeu, le tableau de enum definissant les couleurs. \n
+  * Parcours le tableau représentant la zone de jeu et le remplis de couleurs spécifiées dans les sprintf.\n
   * Retour : rien
 */
 void printColorArray(game_state_t *game, color_t *arr) {
@@ -36,10 +36,10 @@ void printColorArray(game_state_t *game, color_t *arr) {
 	puts(buf);
 	free(buf);
 }
-/** Arguments : Une pièce à afficher, la position relative de la pièce, un environnement
+/** Arguments : Une pièce à afficher, la position relative de la pièce, un environnement\n
   * de jeu, un identifiant pour savoir quel genre de pièce afficher
   * Affichage de la pièce spécifiée sur la zone de jeu, et déclaration de la présence d'
-  * un bateau sur cette cellule.
+  * un bateau sur cette cellule.\n
   * Retour : rien
 */
 void blitToGrid(char (*piece)[5][5], point_t pos, game_state_t *game, int id) {
@@ -59,9 +59,9 @@ void blitToGrid(char (*piece)[5][5], point_t pos, game_state_t *game, int id) {
 			c->boat_id = id;
 		}
 }
-/** Arguments : Une pièce à afficher, le enum de couleurs, la postion de la pièce
+/** Arguments : Une pièce à afficher, le enum de couleurs, la postion de la pièce \n
   * un environnement de jeu, et un int dont l'utilité est floue
-  * Affiche les bateaux placés et en cours de placement sur la zone de jeu
+  * Affiche les bateaux placés et en cours de placement sur la zone de jeu \n
   * Retour : un int.
 */
 int blitBoat(char (*piece)[5][5], color_t *arr, point_t pos, game_state_t *game, int *add) {
@@ -86,9 +86,9 @@ int blitBoat(char (*piece)[5][5], color_t *arr, point_t pos, game_state_t *game,
 		}
 	return acc;
 }
-/** Arguments : un point (la position actuelle du curseur), un environnement de jeu
+/** Arguments : un point (la position actuelle du curseur), un environnement de jeu \n
   * Déplace le curseur sur la zone de jeu, en fonction des interactions du joueur
-  * avec les flèches directionnelles.
+  * avec les flèches directionnelles. \n
   * Retour : Rien
 */
 static void cursorMovement(point_t *r, game_state_t *game) {
@@ -117,11 +117,11 @@ static void cursorMovement(point_t *r, game_state_t *game) {
 		break;
 	}
 }
-/** Arguments : un joueur, un envrionnement de jeu
-  * Détermine le type d'action qu'a fait le joueur lors d'une boucle infinie.
+/** Arguments : un joueur, un envrionnement de jeu \n
+  * Détermine le type d'action qu'a fait le joueur lors d'une boucle infinie. \n
   * Exemple : si on recoit ' ', soit un espace, on sort de la boucle car le joueur
   * a fini de faire ce qu'il avait a faire (tirer, placer un bateau...) Appelle
-  * le interrupHandler en cas de fin de trasnmission (4 en ASCII = EOF, end of transmission)
+  * le interrupHandler en cas de fin de trasnmission (4 en ASCII = EOF, end of transmission) \n
   * Retour : le point de la grille sélectionné par le joueur quand il appuie sur espace.
 */
 static point_t playerLocalAction(player_t *self, game_state_t *game) {
@@ -150,11 +150,11 @@ static point_t playerLocalAction(player_t *self, game_state_t *game) {
 
 	return r;
 }
-/** Arguments : Le joueur devant jouer, l'environnement de jeu.
+/** Arguments : Le joueur devant jouer, l'environnement de jeu. \n
   * Gère la phase de placement des bateaux : initialise le curseur au milieu de la 
   * zone appartenant au joueur, puis lance le placement des bateaux celon le cheat
   * code utilisé. Espace valide le placement du bateau, r demande la rotation de ce
-  * bateau...
+  * bateau... \n
   * Retour : rien.
 */
 static void playerLocalSetBoats(player_t *self, game_state_t *game) {
@@ -209,7 +209,7 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 }
 
 /**
-* Fonction qui créée un nouveau joueur en initialisant sa mémoire et get_action et setup_boats
+* Fonction qui créée un nouveau joueur en initialisant sa mémoire et get_action et setup_boats \n
 * Retour : Pointeur sur player_t
 */
 player_t *newLocalPlayer() {
@@ -218,7 +218,11 @@ player_t *newLocalPlayer() {
 	ret->base.setup_boats = playerLocalSetBoats;
 	return &ret->base;
 }
-
+/** Arguments : un environnement de jeu, un joueur \n
+  * Détermine la couleur que doit prendre la zone de jeu celon le joueu actuel, 
+  * notement pour faire la différence entre les zones alliées et ennemies \n
+  * Retour : un tableau de couleurs
+*/
 color_t *stateToView(game_state_t *game, player_t *filter) {
 
 	color_t *arr = calloc(game->width * game->height, sizeof(color_t));
@@ -233,6 +237,10 @@ color_t *stateToView(game_state_t *game, player_t *filter) {
 		}
 	return arr;
 }
+/** Arguments : 4 pointeurs représentant les 4 coins d'une pièce \n
+  * Inverse les positions de manière a effectuer une rotation a 90° vers la droite \n
+  * Retour : Rien
+*/
 void cyclicRoll(char *a, char *b, char *c, char *d) {
 	char temp = *a;
 	*a = *b;
@@ -240,6 +248,10 @@ void cyclicRoll(char *a, char *b, char *c, char *d) {
 	*c = *d;
 	*d = temp;
 }
+/** Arguments : Une pièce, un numéro de ligne  \n
+  * Vérifie si une ligne de la pièce passée en arguments est vide ou non. \n
+  * Retour : 1 si c'est le cas, 0 sinon.
+*/
 int emptyLine(char piece[PIECE_SIZE][PIECE_SIZE], int line) {
 	int loop;
 	for (loop = 0; loop < PIECE_SIZE; ++loop)
@@ -247,6 +259,10 @@ int emptyLine(char piece[PIECE_SIZE][PIECE_SIZE], int line) {
 			return 0;
 	return 1;
 }
+/** Arguments : une pièce, un numéro de colonne \n
+  * Vérifie si une colonne de la pièce passée en arguments est vide ou non. \n
+  * Retour : 1 si c'est le cas, 0 sinon.
+*/
 int emptyColumn(char piece[PIECE_SIZE][PIECE_SIZE], int column) {
 	int loop;
 	for (loop = 0; loop < PIECE_SIZE; ++loop)
@@ -254,6 +270,10 @@ int emptyColumn(char piece[PIECE_SIZE][PIECE_SIZE], int column) {
 			return 0;
 	return 1;
 }
+/** Arguments : une pièce \n
+  * Déplace le contenu de la pièce passée en arguments vers la gauche. \n
+  * Retour : rien
+*/
 void shiftColumnLeft(char piece[PIECE_SIZE][PIECE_SIZE]) {
 	int column;
 	for (column = 0; column < PIECE_SIZE; ++column) {
@@ -261,19 +281,27 @@ void shiftColumnLeft(char piece[PIECE_SIZE][PIECE_SIZE]) {
 		piece[column][PIECE_SIZE - 1] = 0;
 	}
 }
+/** Arguments : une pièce \n
+  * Déplace le contenu de la pièce passée en arguments vers le haut. \n
+  * Retour : rien
+*/
 void shiftLineUp(char piece[PIECE_SIZE][PIECE_SIZE]) {
 	memmove(&piece[0][0], &piece[1][0], sizeof(piece[0]) * (PIECE_SIZE - 1));
 	memset(&piece[PIECE_SIZE-1], 0, PIECE_SIZE);
 }
+/** Arguments : une pièce \n
+  * Recentre la pièce le plus "en haut à gauche" possible de sa mémire allouée \n
+  * Retour : Rien
+*/
 void realignPiece(char piece[PIECE_SIZE][PIECE_SIZE]) {
 	while (emptyColumn(piece, 0))
 		shiftColumnLeft(piece);
 	while (emptyLine(piece, 0))
 		shiftLineUp(piece);
 }
-/** Argument : une piece (sous la forme d'un tableau de 5*5)
+/** Argument : une piece (sous la forme d'un tableau de 5*5) \n
 * Fonction pour effectuer une rotation de la piece.
-* Le second argument sert a definir le nombre de rotation de 90 degres.
+* Le second argument sert a definir le nombre de rotation de 90 degres à effectuer. \n
 * Retour : rien
 */
 void rotate(char piece[5][5], int rotation_nb) {
@@ -289,6 +317,11 @@ void rotate(char piece[5][5], int rotation_nb) {
 	}
 	realignPiece(piece);
 }
+/** Arguments : une pièce \n
+  * Fonction de débug pas utilisée dans le programme final. Servait a afficher la
+  * pièce sous la forme de 0 et de 1 indépendament de l'affichage graphique \n
+  * Retour : rien
+*/
 void printPiece(char piece[PIECE_SIZE][PIECE_SIZE]) {
 	(void)piece;
 #ifdef Debug
@@ -300,6 +333,8 @@ void printPiece(char piece[PIECE_SIZE][PIECE_SIZE]) {
 	}
 #endif
 }
+/** Tableau représentant toutes les pièces possibles \n
+*/
 char Pieces[][PIECE_SIZE][PIECE_SIZE] = {{{1, 1, 0, 0, 0},
 										  {1, 1, 0, 0, 0},
 										  {0, 0, 0, 0, 0},

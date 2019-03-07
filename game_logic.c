@@ -1,7 +1,7 @@
 #include "master_head.h"
-/** Arguments : Rien
+/** Arguments : Rien \n
   * Initialise une partie en créant une grille de jeu et en allouant un tableau 
-  * de cellule et un camp. Un cheat_code est également initialisé à -1 (inactif)
+  * de cellule et un camp. Un cheat_code est également initialisé à -1 (inactif) \n
   * Retour : Pointeur sur l'instance de jeu nouvellement créée
 */
 game_state_t *newGame() {
@@ -15,8 +15,8 @@ game_state_t *newGame() {
 	return ret;
 }
 /**
-	Args : game_state_t l'etat courant d'une partie , un point , et l'id de la cellule
-	elle nous permet de savoir si oui ou non un bateau a coule
+	Args : game_state_t l'etat courant d'une partie , un point , et l'id de la cellule \n
+	elle nous permet de savoir si oui ou non un bateau a coule \n
 
 	retour un 0 si on a pas coule sinon 1
 */
@@ -55,9 +55,9 @@ int isSunk(game_state_t *game, point_t cp, int id) {
 	return 1;
 }
 /**
-	Args : game_state_t l'etat courant d'une partie , un point , et l'id de la cellule
+	Args : game_state_t l'etat courant d'une partie , un point , et l'id de la cellule \n
 	elle nous permet de mettre a jour pour un point donneé si oui ou non le bateau est coule
-	elle complete la fonction isSunk
+	elle complete la fonction isSunk \n
 	retour  rien
 */
 void setSunk(game_state_t *game, point_t cp, int id) {
@@ -86,8 +86,8 @@ void setSunk(game_state_t *game, point_t cp, int id) {
 	c->has_sunk |= 1;
 }
 /**
-	args: fonction qui prend une game_state_t et point 
-	ils nous indique de quel camps somme nous
+	args: fonction qui prend une game_state_t et point  \n
+	ils nous indique de quel camps somme nous \n
 	elle renvoie un pointeur sur joueur
 	elle nous sert a pouvoir attaquer ou poser les bateaux
 */
@@ -104,11 +104,11 @@ player_t *findOwner(game_state_t *game, point_t p) {
 }
 
 /** Arguments : L'état de la partie actuelle, le joueur actuel et les coordonnées selectionnées
-  *             par celui ci
+  *             par celui ci \n
   * Apres avoir vérifié que les coordonnées entrées n'ont pas déja été entrées et qu'elles
   * sont jouables (sinon, envoie REDO pour relancer le prompt), détruit le point touché (
   * retour HIT) et fait couler le bateau si besoin (retour SUNK). Enfin si le tir ne 
-  * touche pas, retourne MISS
+  * touche pas, retourne MISS \n
   * Retour : renvoie HIT, SUNK MISS ou REDO celon la situation ce qui determinera ce que
   *          le programme doit faire ensuite.
 */
@@ -129,8 +129,8 @@ result_t doAction(game_state_t *game, player_t *player, point_t coordinates) {
 	}
 	return MISS;
 }
-/** Arguments : Une zone de jeu
-  * Parcours la zone de jeu et compte le nombre de bateaux encore en vie
+/** Arguments : Une zone de jeu \n
+  * Parcours la zone de jeu et compte le nombre de bateaux encore en vie \n
   * Retourne 1 si ce nombre est supérieur à 1, 0 sinon
 */
 int turnEndUpdate(game_state_t *game) {
@@ -150,24 +150,24 @@ int turnEndUpdate(game_state_t *game) {
 	return n_alive > 1;
 }
 
-/** Arguments : Le point concerné, un rectangle représentant la zone attaquable
+/** Arguments : Le point concerné, un rectangle représentant la zone attaquable \n
   * Vérifie si le point visé est bien inclus dans le rectangle jouable. En d'autres
-  * termes, si il est dans le camp ennemi
+  * termes, si il est dans le camp ennemi \n
   *	Retour : 1 si jouable, 0 sinon
 */
 int isPointInsideRect(point_t p, point_t rect[2]) {
 	return p.x >= rect[0].x && p.x < rect[1].x &&
 		p.y >= rect[0].y && p.y < rect[1].y;
 }
-/** Arguments : une zone de jeu et un point
-  * Sélectionne la cellule passée en argument
+/** Arguments : une zone de jeu et un point \n
+  * Sélectionne la cellule passée en argument \n
   * Retour : cette cellule
 */
 cell_t *getCell(game_state_t *game, point_t co) {
 	return &game->grid[game->width * co.y + co.x];
 }
-/** Arguments : Une zone de jeu et un point
-  * Récupère les coordonnées d'une cellule
+/** Arguments : Une zone de jeu et un point \n
+  * Récupère les coordonnées d'une cellule \n
   * Retour : les coordonnées de la cellue
 */
 point_t getCoordinates(game_state_t *game, cell_t *c) {

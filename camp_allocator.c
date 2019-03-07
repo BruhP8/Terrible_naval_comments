@@ -1,14 +1,15 @@
 #include "master_head.h"
-
+/** Structure contenant une base (zone de jeu spécifique à un joueur) et un uméro d'allocation \n
+*/
 typedef struct {
 	camp_allocator_t base;
 	int alloc_number;
 } single_camp_allocator_t;
-/** Arguments : un camp, un environnement de jeu et le joueur concerné
+/** Arguments : un camp, un environnement de jeu et le joueur concerné \n
   * Contribue à la création de la zone de jeu du joueur p en attribuant ce joueur 
-  * au nouveau camp et en ajoutant ce camp a la liste des camps de l'environnement de jeu
+  * au nouveau camp et en ajoutant ce camp a la liste des camps de l'environnement de jeu \n
   * Dessine aussi la zone de jeu appartenant a ce joueur et lance la routine de 
-  * placement des bateaux du joueur.
+  * placement des bateaux du joueur. \n
   * Retour : rien
 */
 static void singleAllocateCamp(camp_allocator_t *base, game_state_t *game, player_t *p) {
@@ -28,8 +29,8 @@ static void singleAllocateCamp(camp_allocator_t *base, game_state_t *game, playe
 	++self->alloc_number;
 	p->setup_boats(p, game);
 }
-/** Arguments : Rien
-  * Créé une nouvelle zone de jeu pour un joueur.
+/** Arguments : Rien \n
+  * Créé une nouvelle zone de jeu pour un joueur. \n
   * Retour : un camp_allocator_t représentant la zone de jeu d'un nouveau joueur
  */
 camp_allocator_t *newSingleAllocator() {

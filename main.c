@@ -1,6 +1,6 @@
 #include "master_head.h"
-/** Argument : un signal (Sous la forme d'un int)
-  * Fonction pour arreter le programme proprement quand il recoit un signal SIGINT.
+/** Argument : un signal (Sous la forme d'un int) \n
+  * Fonction pour arreter le programme proprement.. \n
   * Retour : rien
 */
 void interruptHandler(int s) {
@@ -14,7 +14,17 @@ void interruptHandler(int s) {
 	endwin();
 	exit(127);
 }
-
+/** Arguments : les paramétres passés a l'executable et leur nombre. \n
+  * Apres de nombreux appels visant a initialiser ncurses, l'appel a newGame créé les 
+  * camps de chaque joueur. L'activation des éventuels cheat codes se fait en testant
+  * l'existance d'un argument au programme, puis on créé les 3 joueurs. \n
+  * On entre alors dans une boucle infinie qui invite chaque joueur a effectuer une action
+  * puis on l'informe de son résultat (touché, coulé, raté). La boucle est aussi responsable 
+  * du changement de tour (passage de joueur X à joueur Y....) \n
+  * Enfin, si goto(end) est appélée, on affiche le joueur qui a gagné la partie, et on
+  * met fin au programme avec un appel à interrupthandler() \n
+  * retour : 0.
+*/
 int main(int argc, char *argv[argc])
 {
 	struct sigaction s;

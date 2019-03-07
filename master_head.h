@@ -72,8 +72,11 @@ typedef struct camp_s {
 	int is_alive;
 	char *team_string;
 } camp_t;
+/// Création d'un camp
 camp_t *newCamp();
+/// Renvoie le nom du jouer possédant ce camp
 char *campTeamString(camp_t *);
+/// supprime le camp
 void deleteCamp(camp_t *);
 #endif
 
@@ -169,10 +172,12 @@ typedef enum {
 	CYAN,
 	WHITE,
 } color_t;
+/// détermine la couleur que doivent avoir les zones
 color_t *stateToView(game_state_t *game, player_t *filter);
 /// Coloration de la zone de jeu
 void printColorArray(game_state_t *game, color_t *arr);
 /// Fonction qui gere les rotations
 void rotate(char piece[5][5], int rotation_nb);
+/// affiche une pièce sous la forme de 0 et de 1 (debug)
 void printPiece(char piece[PIECE_SIZE][PIECE_SIZE]);
 #endif
