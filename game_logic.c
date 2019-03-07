@@ -1,6 +1,6 @@
 #include "master_head.h"
 /** Arguments : Rien \n
-  * Initialise une partie en créant une grille de jeu et en allouant un tableau 
+  * Initialise une partie en créant une grille de jeu et en allouant un tableau
   * de cellule et un camp. Un cheat_code est également initialisé à -1 (inactif) \n
   * Retour : Pointeur sur l'instance de jeu nouvellement créée
 */
@@ -34,8 +34,8 @@ int isSunk(game_state_t *game, point_t cp, int id) {
 		neighbours[2] = c - 1;
 	if (cp.x != game->width - 1)
 		neighbours[3] = c + 1;
-	
-	
+
+
 	for (int i = 0; i < 4; ++i) {
 		if (!neighbours[i])
 			continue;
@@ -107,7 +107,7 @@ player_t *findOwner(game_state_t *game, point_t p) {
   *             par celui ci \n
   * Apres avoir vérifié que les coordonnées entrées n'ont pas déja été entrées et qu'elles
   * sont jouables (sinon, envoie REDO pour relancer le prompt), détruit le point touché (
-  * retour HIT) et fait couler le bateau si besoin (retour SUNK). Enfin si le tir ne 
+  * retour HIT) et fait couler le bateau si besoin (retour SUNK). Enfin si le tir ne
   * touche pas, retourne MISS \n
   * Retour : renvoie HIT, SUNK MISS ou REDO celon la situation ce qui determinera ce que
   *          le programme doit faire ensuite.
@@ -135,7 +135,7 @@ result_t doAction(game_state_t *game, player_t *player, point_t coordinates) {
 */
 int turnEndUpdate(game_state_t *game) {
 	int n_alive = 0;
-	
+
 	for (unsigned i = 0; i < darraySize(game->camps); ++i) {
 		camp_t *c = *(camp_t**)darrayGet(game->camps, i);
 		c->is_alive = 0;

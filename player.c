@@ -151,7 +151,7 @@ static point_t playerLocalAction(player_t *self, game_state_t *game) {
 	return r;
 }
 /** Arguments : Le joueur devant jouer, l'environnement de jeu. \n
-  * Gère la phase de placement des bateaux : initialise le curseur au milieu de la 
+  * Gère la phase de placement des bateaux : initialise le curseur au milieu de la
   * zone appartenant au joueur, puis lance le placement des bateaux celon le cheat
   * code utilisé. Espace valide le placement du bateau, r demande la rotation de ce
   * bateau... \n
@@ -163,6 +163,32 @@ static void playerLocalSetBoats(player_t *self, game_state_t *game) {
 		(self->owned_rect[0].x + self->owned_rect[1].x) / 2,
 		(self->owned_rect[0].y + self->owned_rect[1].y) / 2
 	};
+
+	/* Partie des mes testiboules	*/
+	//char obst_mem[5][5];
+	//char (*obst)[5][5] = &obst_mem;
+
+	//int alea1 = self->owned_rect[0].x + ((self->owned_rect[1].x - self->owned_rect[0].x) * (rand () / (double) RAND_MAX));
+	//int alea2 = self->owned_rect[0].x + ((self->owned_rect[1].x - self->owned_rect[0].x) * (rand () / (double) RAND_MAX));
+
+	//(rand() % (self->owned_rect[1].x + 1 - self->owned_rect[0].x) + self->owned_rect[0].x)
+
+	time_t t;
+
+	srand((unsigned) time(&t));
+
+	for(int i = 0; i < 41; i++){
+		point_t p1 = {
+			(rand() % (self->owned_rect[1].x - self->owned_rect[0].x) + self->owned_rect[0].x),
+			(rand() % (self->owned_rect[1].y - self->owned_rect[0].y) + self->owned_rect[0].y)
+		};
+		cell_t *c = &game->grid[game->width * p1.y + p1.x];
+		//c->has_exploded = 1;
+		//c->has_exploded = 1;
+		c->obstacle = 1;
+	}
+	/* Fin des mes testiboules */
+
 	for(int i = 0; i < 7;) {
 		if (game->cheat > -1)
 			i = game->cheat;
@@ -219,7 +245,7 @@ player_t *newLocalPlayer() {
 	return &ret->base;
 }
 /** Arguments : un environnement de jeu, un joueur \n
-  * Détermine la couleur que doit prendre la zone de jeu celon le joueu actuel, 
+  * Détermine la couleur que doit prendre la zone de jeu celon le joueu actuel,
   * notement pour faire la différence entre les zones alliées et ennemies \n
   * Retour : un tableau de couleurs
 */
@@ -234,6 +260,12 @@ color_t *stateToView(game_state_t *game, player_t *filter) {
 			const color_t *values = isPointInsideRect((point_t){j, i}, filter->owned_rect) ?
 				player_colors : foe_colors;
 			arr[game->width * i + j] = values[state];
+
+			if(game->grid[game->width * i + j].obstacle && j < filter->owned_rect[1].x && j >= filter->owned_rect[0].x){
+				if(!game->grid[game->width * i + j].has_exploded)
+					arr[game->width * i + j] = BLACK;
+			}
+
 		}
 	return arr;
 }

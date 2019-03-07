@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <curses.h>
 #include <string.h>
+#include <time.h>
 
 #define HEIGHT 25
 #define WIDTH 25
@@ -104,6 +105,7 @@ typedef struct {
 			int has_exploded : 1;
 			int has_sunk : 1;
 			int marked : 1;
+			int obstacle : 1;
 		};
 		unsigned char state;
 	};
